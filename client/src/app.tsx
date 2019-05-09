@@ -14,8 +14,8 @@ export const App = () => (
       </header>
       <main>
         <Switch>
-          <Route path="/" exact component={LoginForm} />
-          <Route path="/secret" component={SecretRoot} />
+          <Route path="/bouncer" exact component={LoginForm} />
+          <Route path="/bouncer/secret" exact component={SecretRoot} />
         </Switch>
       </main>
       <footer>

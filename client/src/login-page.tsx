@@ -19,12 +19,6 @@ export class LoginForm extends React.Component<RouterProps> {
     working: false
   }
 
-  public async componentDidMount() {
-    if (await this.validateAuth()) {
-      this.redirectToFlagPage()
-    }
-  }
-
   public render() {
     return (
       <>
@@ -65,21 +59,8 @@ export class LoginForm extends React.Component<RouterProps> {
     )
   }
 
-  private async validateAuth(): Promise<boolean> {
-    try {
-      const res = await fetch('/api/validate')
-      if (res.status === 200) {
-        return true
-      }
-    } catch (err) {
-      // tslint:disable-next-line:no-console
-      console.warn('Error validating auth!')
-      return false
-    }
-  }
-
   private redirectToFlagPage() {
-    this.props.history.push('/secret')
+    this.props.history.push('/bouncer/secret')
   }
 
   private login = async (e: React.SyntheticEvent) => {

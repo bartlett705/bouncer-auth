@@ -4,24 +4,32 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const devMode = process.env.NODE_ENV !== 'production'
 const CleanWebPackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-
-const webpack = require('webpack')
+const express = require('express')
 
 const plugins = [
-  new CleanWebPackPlugin(['build'], {
-    root: path.resolve(__dirname),
-    verbose: true
-  }),
-  new MiniCssExtractPlugin({
-    filename: devMode ? '[name].css' : '[name].[hash].css',
-    chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
-  }),
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'index.html'),
     env: process.env.NODE_ENV
   }),
-  new CopyWebpackPlugin(['./public'])
 ]
+
+if (!devMode) {
+  plugins.push(
+    new CopyWebpackPlugin([{ from: 'public/', to: '.' }]),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
+    }),
+  )
+}
+
+if (!devMode && !process.env.CI) {
+  plugins.push(new CleanWebPackPlugin(['build'], {
+    root: path.resolve(__dirname),
+    verbose: true
+  }))
+}
+
 module.exports = {
   mode: devMode ? 'development' : 'production',
   plugins,
@@ -29,25 +37,12 @@ module.exports = {
     app: ['./src/index.tsx']
   },
   optimization: {
-    minimize: !devMode
-  },
-  devServer: {
-    contentBase: './public',
-    historyApiFallback: true,
-    proxy: {
-      '/api/**': {
-        target: 'http://localhost:1339/',
-        pathRewrite: {
-          '^/api': '',
-        },
-        logLevel: 'debug'
-      }
-    },
+    // minimize: !devMode
   },
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    publicPath: '/bouncer',
+    filename: 'bundle.[hash].js'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
@@ -68,4 +63,8 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    contentBase: './public',
+    historyApiFallback: true
+  }
 }
