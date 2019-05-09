@@ -15,7 +15,7 @@ app.proxy = true
 
 const rateLimiterOpts = {
   duration: 30, // Time to reset
-  points: 10
+  points: 3
 }
 
 const rateLimiter = new RateLimiterMemory(rateLimiterOpts)
@@ -31,6 +31,7 @@ app.use(async (ctx, next) => {
   } catch {
     ctx.status = 429
     ctx.body = 'Slow down there, cowboy 😛'
+    return
   }
 
   try {
@@ -55,7 +56,7 @@ app.listen(config.port)
 
 logger.warn('hi yall ^_^')
 logger.info(
-  chalk.greenBright(`jwt-auth backend is running on port ${config.port} | `),
+  chalk.greenBright(`jwt-auth backend is running on port ${config.port}`),
   chalk.greenBright('build type:'),
   config.buildType === BuildType.Production
     ? chalk.redBright('PROD')
