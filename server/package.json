@@ -1,0 +1,42 @@
+{
+  "name": "bouncer-auth",
+  "version": "0.0.2",
+  "description": "demo of bouncer authentication",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "forever --watch -m 5 -o ../bouncer-auth.test.log --append -c \"ts-node\" src/index.ts --colors",
+    "start:production": "BUILD_TYPE=prod node_modules/.bin/forever --watch -m 5 -o ../bouncer-auth.prod.log --append build/index.js --colors",
+    "start:production:tsnode": "BUILD_TYPE=prod forever --watch -m 5 -o log/bouncer-auth.prod.log --append -c \"ts-node\" src/index.ts --colors",
+    "build": "tsc",
+    "build:docker": "docker build -t bouncer-auth .",
+    "test": "jest"
+  },
+  "author": "Ahmad Kanawi",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^3.0.0",
+    "dotenv": "^7.0.0",
+    "forever": "^1.0.0",
+    "jest": "^24.5.0",
+    "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "rate-limiter-flexible": "^0.19.4",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.3",
+    "@types/jest": "^24.0.11",
+    "@types/koa__cors": "^2.2.3",
+    "@types/koa-bodyparser": "^5.0.1",
+    "@types/koa-router": "^7.0.32",
+    "@types/koa": "^2.0.46",
+    "@types/node": "^10.12.11",
+    "@types/supertest": "^2.0.7",
+    "chalk": "^2.4.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  }
+}

@@ -1,0 +1,10 @@
+log
+*.log
+package.json
+package-lock.json
+backup.sh
+.gitignore
+.prettierrc.json
+tslint.json
+node_modules
+cookies.jar

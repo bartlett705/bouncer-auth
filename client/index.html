@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Bouncer</title>
+    <link rel="icon" type="image/ico" href="/favicon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <% if (htmlWebpackPlugin.options.env === 'staging') { %>
+    <script>
+      window.env = 'staging'
+    </script>
+    <% } else { %>
+    <script>
+      window.env = 'production'
+    </script>
+    <% } %>
+  </head>
+  <body id="root"></body>
+</html>
