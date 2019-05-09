@@ -89,9 +89,7 @@ function outputLog(logger: Logger, data: Partial<LogData>, thrownError: any) {
     if (thrownError) {
       logger.error(thrownError)
     }
-  } else if (data.statusCode < 400) {
-    process.stdout.write(JSON.stringify(data) + '\n')
   } else {
-    process.stderr.write(JSON.stringify(data) + '\n')
+    process.stdout.write(JSON.stringify(data) + '\n')
   }
 }
