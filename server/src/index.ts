@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 dotenv.config({})
-import * as fs from 'fs'
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 import { RateLimiterMemory } from 'rate-limiter-flexible'

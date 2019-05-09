@@ -1,6 +1,5 @@
 import chalk from 'chalk'
 import Koa from 'koa'
-import { Client } from 'pg'
 import { config } from './config'
 
 interface LogData {
